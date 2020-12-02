@@ -74,14 +74,16 @@ On the command line (the terminal)
     folder will need to be deleted first. This works best if using a postgres dump
     file. Otherwise, the sql file just needs to have valid SQL statments.
     - `#- ./postgres_seed.sql:/docker-entrypoint-initdb.d/postgres_seed.sql`
-
+- You can view the console output of any of the containers by using the
+  command:
+  - `docker logs -f <container name>`
 
 ## Traefik Notes
 This uses the Traefik image from here: https://hub.docker.com/_/traefik/
 - Documentation is here: https://doc.traefik.io/traefik/
 - You can have multiple domains and subdomains pointing to a single container
 using the Hosts line in the label section of docker-compose.yml
-    - "traefik.http.routers.php-apache.rule=Host(`lvh.me`, `fun.lvh.me`, `realdomain.com`)"
+    - "traefik.http.routers.flask.rule=Host(`lvh.me`, `fun.lvh.me`, `realdomain.com`)"
 
 ## lvh.me Notes
 lvh.me is a free service that redirects to localhost, so now you can access the

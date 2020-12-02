@@ -25,9 +25,9 @@ services:
       - "./webapp:/webapp/"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.services.php-apache.loadbalancer.server.port=80"
-      - "traefik.http.routers.php-apache.rule=Host(`lvh.me`, `pfp.lvh.me`, `example.com`)"
-      - "traefik.http.routers.php-apache.entrypoints=web"
+      - "traefik.http.services.flask.loadbalancer.server.port=80"
+      - "traefik.http.routers.flask.rule=Host(`lvh.me`, `pfp.lvh.me`, `example.com`)"
+      - "traefik.http.routers.flask.entrypoints=web"
 
   postgres:
     image: "postgres:13"
