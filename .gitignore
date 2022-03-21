@@ -1,1 +1,3 @@
 db-data
+**/.venv
+**/__pycache__
