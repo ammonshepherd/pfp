@@ -63,6 +63,39 @@ On the command line (the terminal)
   ```
   - The server/host/database url is 'postgres' which is the name of the PostgreSQL container. Because the Python/Flask and PostgreSQL are all in containers, they know to connect to each other through shortcut network names.
 
+## Environment Variables
+You can set environment variables in the docker-compose.yml file and have them
+available in the Flask app.
+
+Add Environment variables to the Flask container
+```
+  flask:
+    build:
+      context: .
+    depends_on:
+      - "traefik"
+      - "postgres"
+    environment:
+      SECRET_KEY: "put_your_secrets_here"
+    volumes:
+      - "./webapp:/webapp/"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.flask.loadbalancer.server.port=80"
+      - "traefik.http.routers.flask.rule=Host(`localhost`, `lvh.me`, `pfp.lvh.me`, `example.com`)"
+      - "traefik.http.routers.flask.entrypoints=web"
+```
+
+Access them in the Flask app
+
+Add `import os` to the top of the app.py file.
+
+Then add this line after the `app = Flask(__name__)` line.
+
+```
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
+```
+
 ## General Notes 
 - This will run four containers: a proxy container, a Python/Flask container, a PostgreSQL container and a pgAdmin container.
 - All of the files for the website building can go in the `webapp` folder.
